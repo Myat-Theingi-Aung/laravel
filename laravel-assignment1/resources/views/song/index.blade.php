@@ -1,9 +1,16 @@
 @extends('layout.layout')
 @section('title')Song Index page @endsection
 @section('content')
+
 <center>
     <h1>Song Information</h1>
     <a class="page-link" href="{{ route('song.create'); }}">Create</a>
+    <a class="page-link" href="{{ route('singer.index'); }}">Singer Page</a>
+    @if(Session::get('status'))
+        <p class="session-info">
+            {{ Session::get('status')}}
+        </p>
+    @endif
     <table>
         <thead>
             <tr>
@@ -21,10 +28,10 @@
         @foreach($data as $d)
             <tr>
                 <td>{{ $d->id }}</td>
-                <td>{{ $d->name }}</td>
+                <td>{{ $d->song_name }}</td>
                 <td>{{ $d->writer_name }}</td>
                 <td>{{ $d->type }}</td>
-                <td>{{$d->singer_name}}</td>
+                <td>{{$d->name}}</td>
                 <td>{{ $d->created_at }}</td>
                 <td>{{ $d->updated_at }}</td>
                 <td>
@@ -32,7 +39,7 @@
                         <form class="col1" action="{{ route('song.destroy',$d->id) }}"  method="post">
                             @csrf
                             @method('delete')
-                            <button class="btn">Delete</button>
+                            <button class="btn" onclick="return confirm('Are you sure you want to delete - {{$d->song_name}}?');">Delete</button>
                         </form>
                         <div class="col2">
                             <a href="{{ route('song.edit',$d->id) }}">Edit</a>

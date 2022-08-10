@@ -4,6 +4,12 @@
 <center>
 <h1>Singer Information</h1>
 <a class="page-link" href="{{ route('singer.create'); }}">Create</a>
+<a class="page-link" href="{{ route('song.index'); }}">Song Page</a>
+@if(Session::get('status'))
+    <p class="session-info">
+        {{ Session::get('status')}}
+    </p>
+@endif
 <table>
     <thead>
         <tr>
@@ -20,8 +26,8 @@
     <tbody>
     @foreach($singers as $singer)
         <tr>
-            <td>{{ $singer->singer_id }}</td>
-            <td>{{ $singer->singer_name }}</td>
+            <td>{{ $singer->id }}</td>
+            <td>{{ $singer->name }}</td>
             <td>{{ $singer->age }}</td>
             <td>{{ $singer->type }}</td>
             <td>{{ $singer->gender }}</td>
@@ -29,13 +35,13 @@
             <td>{{ $singer->updated_at }}</td>
             <td>
                 <div class="btn-div clearfix">
-                    <form class="col1" action="{{ route('singer.destroy',$singer->singer_id) }}"  method="post">
+                    <form class="col1" action="{{ route('singer.destroy',$singer->id) }}"  method="post">
                         @csrf
                         @method('delete')
-                        <button class="btn">Delete</button>
+                        <button class="btn" onclick="return confirm('Are you sure you want to delete - {{$singer->name}}?');">Delete</button>
                     </form>
                     <div class="col2">
-                        <a href="{{ route('singer.edit',$singer->singer_id) }}">Edit</a>
+                        <a href="{{ route('singer.edit',$singer->id) }}">Edit</a>
                     </div>
                 </div>
             </td>

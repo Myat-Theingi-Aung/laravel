@@ -8,11 +8,13 @@
         @csrf
         <div class="name-div">
             <label for="name">Singer Name</label><br>
-            <input type="text" name="singer_name">
+            <input type="text" name="singer_name"><br>
+            <p class="msg">@error('singer_name') {{$message}} @enderror</p>
         </div>
         <div class="age-div">
             <label for="age">Age </label><br>
-            <input type="text" name="age">
+            <input type="text" name="age"><br>
+            <p class="msg">@error('age') {{$message}} @enderror</p>
         </div>
         <div class="type-div">
             <label for="type">Singer Type </label><br>
@@ -27,7 +29,8 @@
             <input type="radio" id="male" name="gender" value="Male">
             <label for="male">Male</label>
             <input type="radio" id="female" name="gender" value="Female">
-            <label for="female">Female</label>
+            <label for="female">Female</label><br>
+            <p class="msg">@error('gender') {{$message}} @enderror</p>
         </div>
         <div class="btn-div">
             <button class="add-btn" name="insertData">Add</button>

@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SingerRequest extends FormRequest
+class SongStoreRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,10 +13,10 @@ class SingerRequest extends FormRequest
     public function rules()
     {
         return [
-            'singer_name' => 'required',
-            'age' => 'required | integer',
+            'name' => 'required',
+            'writer_name' => 'required',
             'type' => 'required',
-            'gender' => 'required',
+            'singer_id' => 'required',
         ];
     }
 }

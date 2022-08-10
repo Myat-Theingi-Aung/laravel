@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SingerRequest extends FormRequest
+class SingerUpdateRequest extends FormRequest
 {
     public function authorize()
     {

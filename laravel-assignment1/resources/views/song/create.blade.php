@@ -8,11 +8,13 @@
     @csrf
     <div class="name-div">
         <label for="name">Song Name </label><br>
-        <input type="text" name="name">
+        <input type="text" name="name"><br>
+        <p class="msg">@error('name') {{$message}} @enderror</p>
     </div>
     <div class="name-div">
         <label for="w-name">Writer Name </label><br>
-        <input type="text" name="writer_name">
+        <input type="text" name="writer_name"><br>
+        <p class="msg">@error('writer_name') {{$message}} @enderror</p>
     </div>
     <div class="type-div">
         <label for="type">Song Type </label><br>
@@ -25,7 +27,7 @@
         <label for="singer_name"> Choose Singer Name </label><br>
         <select class="form-control" name="singer_id">
             @foreach($singers as $singer)
-                <option value="{{$singer->singer_id}}"> {{$singer->singer_name}} </option>
+                <option value="{{$singer->id}}"> {{$singer->name}} </option>
             @endforeach
         </select>
     </div>

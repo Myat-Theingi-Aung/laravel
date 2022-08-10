@@ -6,44 +6,79 @@ use App\Models\Singer;
 use Illuminate\Support\Facades\Request;
 use App\Contracts\Dao\Singer\SingerDaoInterface;
 
+/**
+ * Data accessing object for post
+ */
 class SingerDao implements SingerDaoInterface
 {
+   /**
+     * To get singer information
+     * @return array $singer return singer information
+     */ 
     public function index()
     {
         $singers = Singer::all();
+
         return $singers;
     }
 
-    public function store($validated){
+    /**
+     * To store singer information
+     * @param Request $request request with inputs
+     * @return Object $singer saved singer
+     */
+    public function store($request)
+    {
         $singer = new Singer();
-        $singer->singer_name = $validated['singer_name'];
-        $singer->age = $validated['age'];
-        $singer->type = $validated['type'];
-        $singer->gender = $validated['gender'];
+        $singer->name = $request['singer_name'];
+        $singer->age = $request['age'];
+        $singer->type = $request['type'];
+        $singer->gender = $request['gender'];
         $singer->save();
+        
         return $singer;
     }
 
-    public function destroy($id){
-        $singer = Singer::where('singer_id',$id);
+    /**
+     * To delete singer by id
+     * @param string $id singer id
+     */
+    public function destroy($id)
+    {
+        $singer = Singer::findOrFail($id);
         if($singer){
             $singer->delete();
         }
     }
 
-    public function edit($id){
-        $singer = Singer::where('singer_id',$id)->first();
+    /**
+     * To store old value in edit page
+     * @param string $id singer id
+     * @return Object $singer Singer Object
+     */
+    public function edit($id)
+    {
+        $singer = Singer::findOrFail($id)->first();
+
         return $singer;
     }
 
-    public function update($validated,$id){
-        $record =array(
-            'singer_name' => $validated['singer_name'],
-            'age' => $validated['age'],
-            'type' => $validated['type'],
-            'gender' => $validated['gender']
-        );
-        return Singer::where('singer_id',$id)->update($record);   
+    /**
+     * To update singer by id
+     * @param Request $request request with inputs
+     * @param string $id singer id
+     * @return Object $singer Singer Object
+     */
+    public function update($request,$id)
+    {
+        $singer =Singer::find($id);
+        $singer->name = $request['singer_name'];
+        $singer->age = $request['age'];
+        $singer->type = $request['type'];
+        $singer->gender = $request['gender'];
+        $singer->update();
+
+        return $singer;   
     }
 
 }
